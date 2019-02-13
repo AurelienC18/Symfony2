@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper">
+        <h1>Nos recettes</h1>
+
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-3">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ asset("images/" ~ recipe.picture) }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.name }}</h5>
+                            <a href="{{ path('recipe_details', {'id': recipe.id}) }}" class="btn btn-primary btn-sm">En savoir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

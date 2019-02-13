@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block body %}
+    <div class="example-wrapper row">
+        <div class="col-6">
+            <img class="card-img-top" src="{{ asset("images/" ~ recipe.picture) }}" alt="Card image cap">
+        </div>
+        <div class="col-6">
+            <h1>{{ recipe.name }}</h1>
+            <p>Temps de cuisson : {{ recipe.cookingTime }} mins</p>
+            <p>Temps de préparation : {{ recipe.preparationTime }} mins</p>
+            <p>Difficulté : {{ recipe.difficulty }}</p>
+            <p>Budget : {{ recipe.budget }} €</p>
+            <p>Pour : {{ recipe.nbPerson }} personnes</p>
+            <p>{{ recipe.description }}</p>
+            <p>Ingrédients :</p>
+            <div class="d-flex flex-column">
+                {% for ingredient in recipe.ingredients %}
+                    <span>{{ ingredient.quantity }} {{ ingredient.unit.name }} {{ ingredient.label }}</span>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+        <div class="row d-flex flex-column">
+            <div>
+                {{ form_row(form.user) }}
+            </div>
+            <div>
+                {{ form_row(form.commentary) }}
+            </div>
+            <div>
+                {{ form_row(form.note) }}
+            </div>
+            <div>
+                {{ form_row(form.save) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <h3>Commentaires :</h3>
+
+    {% for opinion in recipe.opinions %}
+        <div class="row d-flex flex-column">
+            <p>{{ opinion.user.username }} {{ opinion.note }}/5</p>
+            <p>{{ opinion.commentary }}</p>
+        </div>
+
+    {% endfor %}
+{% endblock %}
